@@ -11,4 +11,9 @@ After I extract the data & convert it into a CSV file, I decided to use MySQL Wo
 
 Posed Question | SQL Command 
 --- | --- 
-Seconds | 301 
+If someone wants to make a last minute (quick) meal that can serve at least 6 people | SELECT * FROM recipe where total = (SELECT MIN(total) FROM recipe WHERE serve >= 6) AND serve>=6
+If someone wants to make a meal that can cook while he’s out for a while (gym, errands etc) and has a higher than average protein (show the top 3 selections) | SELECT * FROM recipe where protein > (SELECT AVG(protein) FROM recipe) ORDER BY total DESC LIMIT 3
+If someone wants to lose weight but is actively exercising & needs at least 30g of protein (show the top 2 selections) | SELECT * FROM recipe where protein > 30 ORDER BY calories ASC LIMIT 2
+If someone is making a dinner party for 6-8 (himself included) & the guests do not consume sugar | SELECT * FROM recipe where serve BETWEEN 6 AND 8 ORDER BY sugars ASC LIMIT 1
+If someone works all day & wants to come back & cook a quick meal with minimum prep that can meets or surpasses his required intake of calories (650) | SELECT * FROM recipe where prep = (SELECT MIN(prep) FROM recipe WHERE calories>650)
+If someone wants to make a recipe that will feed just 4 people and fill them up as much as possible (highest calories per serving) | SELECT * FROM recipe WHERE serve = 4 ORDER BY calories DESC LIMIT 1
